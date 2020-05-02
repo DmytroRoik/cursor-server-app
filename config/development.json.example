@@ -2,11 +2,11 @@
     "database": {
         "client": "postgresql",
         "connection": {
-          "host": "db-dev.ckn3bfd9pakb.eu-west-3.rds.amazonaws.com",
-          "port": "5436",
-          "database": "cursor",
-          "user": "postgres",
-          "password": "Aa123456789"
+          "host": "xxx",
+          "port": "xxx",
+          "database": "xxx",
+          "user": "xxx",
+          "password": "xxx"
         },
         "migrations": {
           "tableName": "knex_migrations"

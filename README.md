@@ -1,24 +1,14 @@
-# Boilerplate: Knex.js
+# Cursor test app server (Money Tracker)
 
-Phase 1 boilerplate project with:
+## Getting Started
+### Setup configs
+ use config/development.json.example like template for setup configs for server
 
- - Express
- - Knex
- - SQLite3
- - Express Handlebars
- - body-parser
- - Jest
- - nodemon
-
-
-## Install
-
+### Run project
 ```
-npm install
-npx knex migrate:latest
-npx knex seed:run
-npm run dev
+npm install              # install dependencies (once)
+npm run migration        # create DB (once)
+npm run seed             # put initial data into DB (once)
+npm run start            # start server on port 3000 (by default)
 ```
-
-Be sure to check out the other npm scripts too.
 
