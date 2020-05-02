@@ -1,0 +1,738 @@
+{
+    "swagger":"2.0",
+    "info":{
+      "version":"1.0.0",
+      "title":"Money tracker"
+    },
+    "host":"ec2-35-181-53-65.eu-west-3.compute.amazonaws.com:3000",
+    "basePath":"/",
+    "tags":[
+      {
+        "name":"user",
+        "description":"Everything about your Profile"
+      },
+      {
+        "name":"icon",
+        "description":"Everything about your Icon"
+      },
+      {
+        "name":"category",
+        "description":"Everything about your Categories"
+      },
+      {
+        "name":"statistic",
+        "description":"Show statistic for period"
+      }
+    ],
+    "schemes":[
+      "http"
+    ],
+    "paths":{
+      "/users/uploadImage":{
+        "post":{
+          "tags":[
+            "user"
+          ],
+          "summary":"uploads an avatar",
+          "description":"",
+          "operationId":"uploadFile",
+          "consumes":[
+            "multipart/form-data"
+          ],
+          "produces":[
+            "application/json"
+          ],
+          "parameters":[
+            {
+              "name":"file",
+              "in":"formData",
+              "description":"file to upload",
+              "required":true,
+              "type":"file"
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        }
+      },
+      "/users":{
+        "put":{
+          "tags":[
+            "user"
+          ],
+          "summary":"Edit current user",
+          "operationId":"editUserData",
+          "consumes":[
+            "application/json",
+            "application/xml"
+          ],
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "description":"User data that needs to be changed",
+              "required":true,
+              "schema":{
+                "$ref":"#/definitions/editUser"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+                "description":"successful operation"
+            },
+            "400":{
+              "description":"Bad request"
+            }
+          }
+        }
+      },
+      "/users/current":{
+        "get":{
+          "tags":[
+            "user"
+          ],
+          "summary":"Get current user profile",
+          "operationId":"findCurrentUser",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+  
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        }
+      },
+      "/icons":{
+        "get":{
+          "tags":[
+            "icon"
+          ],
+          "summary":"Get all icons",
+          "operationId":"findIcons",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+  
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        }
+      },
+      "/charges":{
+        "post":{
+          "tags":[
+            "charge"
+          ],
+          "summary":"Create income or charge entry",
+          "description":"",
+          "operationId":"createCharge",
+          "consumes":[
+            "application/json"
+          ],
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "required":true,
+              "schema":{
+                "$ref":"#/definitions/createCharge"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid Entry"
+            }
+          }
+        },
+        "get":{
+          "tags":[
+            "charge"
+          ],
+          "summary":"Find all entry",
+          "operationId":"getCharges",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "name":"type",
+              "in":"query",
+              "description":"type of charge ('charge' | 'income')",
+              "required":true,
+              "type":"string"
+            },
+            {
+              "name":"from",
+              "in":"query",
+              "description":"start date (in ms)",
+              "required":false,
+              "type":"number"
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        },
+        "put":{
+          "tags":[
+            "charge"
+          ],
+          "summary":"Edit specific entry",
+          "operationId":"editCharge",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "required":true,
+              "schema":{
+                "$ref":"#/definitions/editCharge"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid Entry"
+            }
+          }
+        },
+        "delete":{
+          "tags":[
+            "charge"
+          ],
+          "summary":"Delete charge by ID",
+          "operationId":"deleteCharge",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "name":"id",
+              "in":"query",
+              "description":"ID of the charge that needs to be deleted",
+              "required":true,
+              "type":"integer",
+              "minimum":1,
+              "format":"int64"
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid ID supplied"
+            },
+            "404":{
+              "description":"Charge not found"
+            }
+          }
+        }
+      },
+      "/categories":{
+        "get":{
+          "tags":[
+            "category"
+          ],
+          "summary":"Find all categories",
+          "operationId":"getCategories",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+  
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        },
+        "delete":{
+          "tags":[
+            "category"
+          ],
+          "summary":"Delete category by ID",
+          "operationId":"deleteCategory",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "name":"id",
+              "in":"query",
+              "description":"ID of the order that needs to be deleted",
+              "required":true,
+              "type":"integer",
+              "minimum":1,
+              "format":"int64"
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid ID supplied"
+            },
+            "404":{
+              "description":"Category not found"
+            }
+          }
+        },
+        "put":{
+          "tags":[
+            "category"
+          ],
+          "summary":"Edit specific category",
+          "operationId":"editCategory",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "required":true,
+              "schema":{
+                "$ref":"#/definitions/editCategory"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid Entry"
+            }
+          }
+        },
+        "post":{
+          "tags":[
+            "category"
+          ],
+          "summary":"Create new category",
+          "operationId":"createCategory",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "required":true,
+              "schema":{
+                "$ref":"#/definitions/createCategory"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            },
+            "400":{
+              "description":"Invalid Entry"
+            }
+          }
+        }
+      },
+      "/stats": {
+        "get":{
+          "tags":[
+            "stats"
+          ],
+          "summary":"Load all statistic",
+          "operationId":"getStats",
+          "produces":[
+            "application/json",
+            "application/xml"
+          ],
+          "parameters":[
+            {
+              "name":"from",
+              "in":"query",
+              "description":"start date (in ms)",
+              "required":false,
+              "type":"number"
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"successful operation"
+            }
+          }
+        }
+      }
+    },
+    "definitions":{
+      "User":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "avatar":{
+            "type":"string"
+          },
+          "name":{
+            "type":"string"
+          },
+          "email":{
+            "type":"string"
+          },
+          "createdAt":{
+            "type":"string"
+          },
+          "updatedAt":{
+            "type":"string"
+          }
+        },
+        "xml":{
+          "name":"User"
+        }
+      },
+      "editUser": {
+        "type":"object",
+        "properties":{
+          "name":{
+            "type":"string"
+          },
+          "email":{
+            "type":"string"
+          },
+          "notify":{
+            "type":"boolean"
+          },
+          "criticalBudget":{
+            "type":"number"
+          }
+        },
+        "xml":{
+          "name":"editUser"
+        }
+      },
+      "Icon":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "class":{
+            "type":"string"
+          },
+          "createdAt":{
+            "type":"string"
+          },
+          "updatedAt":{
+            "type":"string"
+          }
+        },
+        "xml":{
+          "name":"Icon"
+        }
+      },
+      "Category":{
+        "type":"object",
+        "required":[
+          "name",
+          "icon"
+        ],
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "name":{
+            "type":"string"
+          },
+          "description":{
+            "type":"string"
+          },
+          "icon":{
+            "$ref":"#/definitions/Icon"
+          },
+          "createdAt":{
+            "type":"string"
+          },
+          "updatedAt":{
+            "type":"string"
+          }
+        },
+        "xml":{
+          "name":"Category"
+        }
+      },
+      "createCategory": {
+        "type":"object",
+        "required":[
+          "name",
+          "icon"
+        ],
+        "properties":{
+          "name":{
+            "type":"string"
+          },
+          "description":{
+            "type":"string"
+          },
+          "iconId":{
+            "type":"integer",
+            "format":"int64"
+          }
+        },
+        "xml":{
+          "name":"createCategory"
+        }
+      },
+      "editCategory": {
+        "type":"object",
+        "required":[
+            "id",
+          "name",
+          "iconId"
+        ],
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "name":{
+            "type":"string"
+          },
+          "description":{
+            "type":"string"
+          },
+          "iconId":{
+            "type":"integer",
+            "format":"int64"
+          }
+        },
+        "xml":{
+          "name":"editCategory"
+        }
+      },
+      "Charge":{
+        "type":"object",
+        "required":[
+          "name",
+          "icon"
+        ],
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "category":{
+            "$ref":"#/definitions/Category"
+          },
+          "user":{
+            "$ref":"#/definitions/User"
+          },
+          "description":{
+            "type":"string"
+          },
+          "date": {
+            "type":"integer",
+            "format":"int64"
+          },
+          "money":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "type":{
+            "type":"string",
+            "description":"charge type in the db",
+            "enum":[
+              "charge",
+              "income"
+            ]
+          },
+          "createdAt":{
+            "type":"string"
+          },
+          "updatedAt":{
+            "type":"string"
+          }
+        },
+        "xml":{
+          "name":"Charge"
+        }
+      },
+      "createCharge": {
+        "type":"object",
+        "required":[
+          "name",
+          "icon",
+          "categoryId"
+        ],
+        "properties":{
+          "categoryId":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "description":{
+            "type":"string"
+          },
+          "date": {
+            "type":"integer",
+            "format":"int64"
+          },
+          "money":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "type":{
+            "type":"string",
+            "description":"charge type in the db",
+            "enum":[
+              "charge",
+              "income"
+            ]
+          }
+        },
+        "xml":{
+          "name":"createCharge"
+        }
+      },
+      "editCharge": {
+        "type":"object",
+        "required":[
+            "id",
+          "name",
+          "iconId",
+          "type",
+          "money",
+          "categoryId"
+        ],
+        "properties":{
+          "id":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "categoryId":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "description":{
+            "type":"string"
+          },
+          "date": {
+            "type":"integer",
+            "format":"int64"
+          },
+          "money":{
+            "type":"integer",
+            "format":"int64"
+          },
+          "type":{
+            "type":"string",
+            "description":"charge type in the db",
+            "enum":[
+              "charge",
+              "income"
+            ]
+          }
+        },
+        "xml":{
+          "name":"editCharge"
+        }
+      },
+      "stats": {
+        "type":"object",
+        "required":[
+        ],
+        "properties":{
+          "income":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type":"string"
+                },
+                "desc": {
+                  "type":"string"
+                },
+                "date": {
+                  "type":"integer",
+                  "format":"int64"
+                },
+                "price": {
+                  "type":"integer",
+                  "format":"int64"
+                }
+              }
+            }
+          },
+          "charge":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type":"string"
+                },
+                "desc": {
+                  "type":"string"
+                },
+                "date": {
+                  "type":"integer",
+                  "format":"int64"
+                },
+                "price": {
+                  "type":"integer",
+                  "format":"int64"
+                }
+              }
+            }
+          }
+        },
+        "xml":{
+          "name":"editCharge"
+        }
+      }
+    }
+  }
